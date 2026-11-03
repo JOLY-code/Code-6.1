@@ -166,18 +166,37 @@ export default function MediaHub() {
   const chapters = activeVideo?.chapters || [];
   const activeChapter = chapters.find((c) => c.id === activeChapterId) || chapters[0] || null;
 
-  const isNativeContainer = Boolean(
-    !localVideo && activeVideo && (activeVideo.nativeFormat || /\.(mts|mov)$/i.test(activeVideo.src || '')),
+  const isYouTube = Boolean(
+    !localVideo &&
+      activeVideo &&
+      (String(activeVideo.url || activeVideo.src || '').includes('youtube.com') ||
+        String(activeVideo.url || activeVideo.src || '').includes('youtu.be')),
   );
 
-  const primaryResolvedSrc = activeVideo ? resolveAssetUrl(activeVideo.src) : '';
+  const isNativeContainer = Boolean(
+    !localVideo &&
+      !isYouTube &&
+      activeVideo &&
+      (activeVideo.nativeFormat || /\.(mts|mov)$/i.test(activeVideo.src || '')),
+  );
+
+  const primaryResolvedSrc = activeVideo ? resolveAssetUrl(activeVideo.url || activeVideo.src) : '';
   const fallbackResolvedSrc = activeVideo?.fallbackSrc ? resolveAssetUrl(activeVideo.fallbackSrc) : '';
-  const effectiveVideoSrc = localVideo?.url || (useFallbackPath && fallbackResolvedSrc ? fallbackResolvedSrc : primaryResolvedSrc);
+  const effectiveVideoSrc =
+    localVideo?.url || (useFallbackPath && fallbackResolvedSrc ? fallbackResolvedSrc : primaryResolvedSrc);
+  const [youtubeTimestamp, setYoutubeTimestamp] = useState(0);
+
+  const baseYoutubeUrl = activeVideo?.url || activeVideo?.src || effectiveVideoSrc;
+  const iframeSrc =
+    youtubeTimestamp > 0
+      ? `${baseYoutubeUrl}${baseYoutubeUrl.includes('?') ? '&' : '?'}start=${youtubeTimestamp}&autoplay=1`
+      : baseYoutubeUrl;
 
   const selectVideo = (vid) => {
     setSelectedVideoId(vid.id);
     setUseFallbackPath(false);
     setPlaybackFailed(false);
+    setYoutubeTimestamp(0);
     setActiveChapterId(vid.chapters?.[0]?.id || '');
     if (localVideo?.url) {
       URL.revokeObjectURL(localVideo.url);
@@ -205,6 +224,10 @@ export default function MediaHub() {
 
   const seekToChapter = (ch) => {
     setActiveChapterId(ch.id);
+    if (isYouTube) {
+      setYoutubeTimestamp(ch.seconds);
+      return;
+    }
     if (videoRef.current && effectiveVideoSrc && !playbackFailed) {
       try {
         videoRef.current.currentTime = ch.seconds;
@@ -318,16 +341,29 @@ export default function MediaHub() {
 
             {isPrivileged ? (
               <div className="flex flex-wrap items-center gap-2">
-                {primaryResolvedSrc && !localVideo && (
+                {isYouTube ? (
                   <a
-                    href={primaryResolvedSrc}
-                    download
+                    href={(activeVideo?.url || activeVideo?.src || '').replace('/embed/', '/watch?v=')}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-secondary py-2 text-xs"
-                    title="Télécharger le fichier vidéo original"
+                    title="Ouvrir la vidéo sur YouTube dans un nouvel onglet"
                   >
-                    <Icon name="Download" size={14} className="text-emerald-400" />
-                    <span>Télécharger la vidéo</span>
+                    <Icon name="ExternalLink" size={14} className="text-red-400" />
+                    <span>Ouvrir sur YouTube</span>
                   </a>
+                ) : (
+                  primaryResolvedSrc && !localVideo && (
+                    <a
+                      href={primaryResolvedSrc}
+                      download
+                      className="btn-secondary py-2 text-xs"
+                      title="Télécharger le fichier vidéo original"
+                    >
+                      <Icon name="Download" size={14} className="text-emerald-400" />
+                      <span>Télécharger la vidéo</span>
+                    </a>
+                  )
                 )}
                 <input
                   ref={videoInputRef}
@@ -410,7 +446,18 @@ export default function MediaHub() {
                   draggingVideo ? 'border-amber-400 ring-2 ring-amber-400/40' : 'border-slate-800'
                 }`}
               >
-                {!playbackFailed ? (
+                {isYouTube ? (
+                  <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black">
+                    <iframe
+                      key={iframeSrc}
+                      src={iframeSrc}
+                      title={activeVideo?.title || 'Démonstration R2A ENSTA'}
+                      className="h-full w-full rounded-2xl border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : !playbackFailed ? (
                   <video
                     key={effectiveVideoSrc}
                     ref={videoRef}
@@ -532,7 +579,13 @@ export default function MediaHub() {
                 <div className="space-y-2.5">
                   {playlist.map((vid, idx) => {
                     const active = vid.id === activeVideo?.id && !localVideo;
-                    const ext = (vid.src.split('.').pop() || 'mp4').toUpperCase();
+                    const isVidYouTube = Boolean(
+                      (vid.src || vid.url || '').includes('youtube.com') ||
+                      (vid.src || vid.url || '').includes('youtu.be')
+                    );
+                    const ext = isVidYouTube
+                      ? 'YouTube HD'
+                      : (vid.src.split('.').pop() || 'mp4').toUpperCase();
                     return (
                       <button
                         key={vid.id}
@@ -558,7 +611,9 @@ export default function MediaHub() {
                             </span>
                             <span
                               className={`shrink-0 rounded px-1.5 py-0.5 font-mono text-[10px] font-bold ${
-                                ext === 'MP4'
+                                isVidYouTube
+                                  ? 'border border-red-500/30 bg-red-500/15 text-red-300'
+                                  : ext === 'MP4'
                                   ? 'bg-emerald-500/15 text-emerald-300'
                                   : 'bg-slate-800 text-slate-400'
                               }`}

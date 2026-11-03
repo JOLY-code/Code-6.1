@@ -1620,8 +1620,8 @@ const projectData = {
         {
           id: 'agri-vid-1',
           title: 'Démonstration Tracteur 155 cv (John Deere 6155R)',
-          src: '/Video/Reinvent_the_wheel.mp4',
-          fallbackSrc: '/Vidéo/Reinvent_the_wheel.mp4',
+          src: 'https://www.youtube.com/embed/h_q3IwYjbNI',
+          url: 'https://www.youtube.com/embed/h_q3IwYjbNI',
           badge: 'TRL 6 · John Deere 6155R (155 cv) · Ø 1,80 m',
           nativeFormat: false,
           description:
@@ -1664,10 +1664,10 @@ const projectData = {
         {
           id: 'agri-vid-2',
           title: "Présentation Technique Complète du Projet R2A (Par Y. Argouarc'h)",
-          src: '/Video/Roues auto_adaptatives.mov',
-          fallbackSrc: '/Vidéo/Roues auto_adaptatives.mov',
+          src: 'https://www.youtube.com/embed/bLeHpV7RfTk',
+          url: 'https://www.youtube.com/embed/bLeHpV7RfTk',
           badge: 'Conférence Technique Complète · ENSTA',
-          nativeFormat: true,
+          nativeFormat: false,
           description:
             "Présentation détaillée par l'inventeur (Yannick Argouarc'h) de la genèse du concept R2A, de l'architecture mécanique interne, des campagnes d'essais et des déclinaisons multi-sectorielles.",
           chapters: [],
@@ -1678,8 +1678,8 @@ const projectData = {
         {
           id: 'btp-vid-1',
           title: 'Démonstration Porteur Lourd & Franchissement Haute Charge',
-          src: '/Video/Reinvent_the_wheel.mp4',
-          fallbackSrc: '/Vidéo/Reinvent_the_wheel.mp4',
+          src: 'https://www.youtube.com/embed/h_q3IwYjbNI',
+          url: 'https://www.youtube.com/embed/h_q3IwYjbNI',
           badge: 'Porteurs Lourds & Chantiers · Course 16 cm',
           nativeFormat: false,
           description:
@@ -1722,10 +1722,10 @@ const projectData = {
         {
           id: 'btp-vid-2',
           title: "Présentation Technique Complète du Projet R2A (Par Y. Argouarc'h)",
-          src: '/Video/Roues auto_adaptatives.mov',
-          fallbackSrc: '/Vidéo/Roues auto_adaptatives.mov',
+          src: 'https://www.youtube.com/embed/bLeHpV7RfTk',
+          url: 'https://www.youtube.com/embed/bLeHpV7RfTk',
           badge: 'Ingénierie & Brevets · ENSTA',
-          nativeFormat: true,
+          nativeFormat: false,
           description:
             'Exposé technique complet du mécanisme R2A pour porteurs lourds, remorques TP et roulettes industrielles de manutention lourde.',
           chapters: [],
@@ -1736,9 +1736,9 @@ const projectData = {
         {
           id: 'rob-vid-2',
           title: 'Essais Robot Mobile en Environnement Naturel (Plage & Galets)',
-          src: '/Video/Robotique_mobile-test-plage.mp4',
-          fallbackSrc: '/Vidéo/Robotique_mobile-test-plage.mp4',
-          badge: 'Essais Terrain · Mobilité Tout-Terrain (.mp4)',
+          src: 'https://www.youtube.com/embed/Z7PQ3ZA-ZG0',
+          url: 'https://www.youtube.com/embed/Z7PQ3ZA-ZG0',
+          badge: 'Essais Terrain · Mobilité Tout-Terrain (YouTube)',
           nativeFormat: false,
           description:
             'Campagne de roulage du démonstrateur robotisé sur sol meuble et galets démontrant la motricité continue sans électronique ni consommation énergétique additionnelle.',
@@ -1747,9 +1747,9 @@ const projectData = {
         {
           id: 'rob-vid-3',
           title: 'Roue Magnétique Auto-Adaptative (Concept & Déformation)',
-          src: '/Video/Roue Magnetique.mp4',
-          fallbackSrc: '/Vidéo/Roue Magnetique.mp4',
-          badge: 'Inspection Industrielle & Nucléaire · Brevet EDF/ENSTA (.mp4)',
+          src: 'https://www.youtube.com/embed/Ql-b8r0Gm18',
+          url: 'https://www.youtube.com/embed/Ql-b8r0Gm18',
+          badge: 'Inspection Industrielle & Nucléaire · Brevet EDF/ENSTA',
           nativeFormat: false,
           description:
             "Roue métallique déformable composée d'un empilement de disques d'acier découpés au laser mobiles entre eux : épouse parfaitement la courbure des parois métalliques et les cordons de soudure pour maximiser l'attraction magnétique.",
@@ -1758,9 +1758,9 @@ const projectData = {
         {
           id: 'rob-vid-4',
           title: 'Robot à Roues Magnétiques en Conduite Forcée (Barrage EDF)',
-          src: '/Video/Roue Magnetique dans conduite .mp4',
-          fallbackSrc: '/Vidéo/Roue Magnetique dans conduite .mp4',
-          badge: 'Essais en Conduite Forcée · Inspection Barrages & EPR (.mp4)',
+          src: 'https://www.youtube.com/embed/E90W2X5zgaE',
+          url: 'https://www.youtube.com/embed/E90W2X5zgaE',
+          badge: 'Essais en Conduite Forcée · Inspection Barrages & EPR',
           nativeFormat: false,
           description:
             "Évolution du robot d'inspection autonome à l'intérieur d'une conduite courbe : adhérence magnétique maximale maintenue malgré la courbure de la paroi.",
@@ -1769,10 +1769,10 @@ const projectData = {
         {
           id: 'rob-vid-1',
           title: "Robot Terrestre Tout-Terrain : Franchissement d'Obstacles",
-          src: '/Video/Roue Terrestre.MTS',
-          fallbackSrc: '/Vidéo/Roue Terrestre.MTS',
-          badge: 'Démonstrateur Robot Terrestre · ENSTA (.MTS)',
-          nativeFormat: true,
+          src: 'https://www.youtube.com/embed/Y--D7JI7VAE',
+          url: 'https://www.youtube.com/embed/Y--D7JI7VAE',
+          badge: 'Démonstrateur Robot Terrestre · ENSTA',
+          nativeFormat: false,
           description:
             "Franchissement passif d'obstacles asymétriques par un robot mobile équipé de roues auto-adaptatives R2A : maintien des 4 roues au contact du sol et division par 2 de l'inclinaison du châssis (mât LiDAR / caméras stabilisé sans suspension active).",
           chapters: [],
@@ -1780,10 +1780,10 @@ const projectData = {
         {
           id: 'rob-vid-5',
           title: "Présentation Globale des 4 Prototypes R2A (Par Y. Argouarc'h)",
-          src: '/Video/Roues auto_adaptatives.mov',
-          fallbackSrc: '/Vidéo/Roues auto_adaptatives.mov',
-          badge: 'Synthèse Complète · Terrestre, Magnétique & Sous-Marin (.mov)',
-          nativeFormat: true,
+          src: 'https://www.youtube.com/embed/bLeHpV7RfTk',
+          url: 'https://www.youtube.com/embed/bLeHpV7RfTk',
+          badge: 'Synthèse Complète · Terrestre, Magnétique & Sous-Marin',
+          nativeFormat: false,
           description:
             "Présentation complète par Yannick Argouarc'h incluant l'historique EDF (2016–2021), le robot terrestre, le robot sous-marin et la roulette industrielle.",
           chapters: [],
